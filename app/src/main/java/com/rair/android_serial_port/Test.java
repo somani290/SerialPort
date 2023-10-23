@@ -30,41 +30,21 @@ public class Test extends AppCompatActivity {
         SerialPortManager machineControl;
         try {
            machineControl = new SerialPortManager("/dev/ttyMT3", 115200);
-         //   machineControl = new SerialPortManager("/dev/ttyMT3", 9600);
-            Log.d("SerialPort", "ok");
-
         } catch (Exception e) {
-            Log.d("SerialPort", "error");
             throw new RuntimeException(e);
         }
-        // boolean openCOM = machineControl.openCOM();
         boolean openCOM = false;
         Log.d("SerialPort", "openCOM value0 : " + openCOM);
-
-
         try {
             openCOM = machineControl.openCOM();
-            Log.d("SerialPort", "Serial Port Open communication");
-            Log.d("SerialPort", "openCOM value : " + openCOM);
-
-            String a[]= machineControl.getCOMList();
-            for(int i=0;i<a.length;i++)
-            {
-                Log.d("SerialPort","Comm list :"+a[i]);
-
-            }
-
         } catch (Exception e) {
-            Log.e("SerialPort", "Error in open Serial Port communication");
             e.printStackTrace();
         }
-
         Log.d("SerialPort", "openCOM value2 : " + openCOM);
 
         if (openCOM) {
             Log.d("SerialPort", " Communication open");
             machineControl.sendCMD(new byte[0x00]);
-
             machineControl.setOnDataReceiverListener(new OnDataReceiverListener() {
                 @Override
                 public void onDataReceiver(byte[] buffer, int size) {

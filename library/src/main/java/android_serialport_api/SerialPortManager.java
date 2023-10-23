@@ -85,16 +85,16 @@ public class SerialPortManager {
         if (mSerialPort == null) {
             try {
                 mSerialPort = new SerialPort(new File(mDeviceName), mBaudRate, 0);
-                Log.d("SerialPort","Line 1");
+
                 mOutputStream = mSerialPort.getOutputStream();
-                Log.d("SerialPort","Line 2");
+
                 mInputStream = mSerialPort.getInputStream();
-                Log.d("SerialPort","Line 3");
+
                 //Start reading serial port data thread
                 mReadCOMThread = new ReadCOMThread();
-                Log.d("SerialPort","Line 4");
+
                 mReadCOMThread.start();
-                Log.d("SerialPort","Line 5");
+
                 return true;
             } catch (Exception e) {
                 Log.i(TAG, e.getMessage());
@@ -125,10 +125,8 @@ public class SerialPortManager {
     public boolean sendCMD(byte[] data) {
         try {
             if (mOutputStream != null) {
-                Log.d("SerialPort","send line 1");
-                mOutputStream.write(data);
-                Log.d("SerialPort","send line 2");
 
+                mOutputStream.write(data);
                 mOutputStream.flush();
             } else {
                 Log.d("SerialPort","Error in sendCMD");
